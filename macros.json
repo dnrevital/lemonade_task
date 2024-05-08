@@ -1,0 +1,46 @@
+[
+  {
+    "Name": "Pet::Account Management::Update Address [ Unsupported State / State Not Covered ]",
+    "Intent category": "Can I update my address?",
+    "Metadata": {
+      "relevant_product_line": "pet"
+    },
+    "Weekly usage": 55,
+    "Description": "pet policies are not available at AK, DE, FL, HI, ID, KS KY, LA, ME, MN, SD, VT, WV, WY",
+    "Content": "Hey, Thank you for reaching out! Unfortunately, at this time, Lemonade pet insurance is not available in the state of [STATE] so we will need to cancel your policy. Right now, Lemonade pet health insurance is only available in the following states: AL, AR, AZ, CA, CO, CT, DC, GA, IA, IL, IN, MA, MD, MI, MO, MS, MT, ND, NE, NC, NH, NJ, NM, NV, NY, OH, OK, OR, PA, RI, SC, TN, TX, UT, VA, WA, WI Just a heads up in regards to canceling your pet policy: any illnesses that have happened until this point now become pre-existing, so we won't be able to cover them if you were to sign up again. The waiting periods on the policy would also restart. You can cancel your policy right through this link: https://lemonade.com/diy/cancel_policy Feel free to reach out if you need anything else or need help canceling when the time comes. Best, Maya",
+    "Input examples": [
+      "I moved to a different state and need to update my address. The new address is: 1542 N Mountain Valley Highway Montville, ME 04941 Thank you, Joseph",
+      "Hi, is my insurance policy Global? or just US? I'm moving to the UK and would like to know if my policy will cover Maggie there",
+      "My home address has changed, how do I update that? we're at 1146 Laurie Rd W Roseville, MN 55113 Moved April 1, 2023 Thanks!"
+    ]
+  },
+  {
+    "Name": "Pet::Account Management::Update Address [ Pet Moved / Change Address / Moving ] [ ( Same Premium )]",
+    "Intent category": "Can I update my address?",
+    "Metadata": {
+      "relevant_product_line": "pet"
+    },
+    "Weekly usage": 4444,
+    "Description": "For address change when premium does not change with new address",
+    "Content": "Hey, Thanks for sending that over! We were able to get your address updated on [PET NAME]'s policy, and your premium will remain the same, so you're all set! Let me know if you need help with anything else going forward! Best, Maya",
+    "Input examples": [
+      "Hello Maya, The address on my policy is incorrect. It should read: 143 Pamlico Drive Holly Ridge NC 28445 There is no apt number, it is a single family owned by me. Sincerely yours, E Sent from my T-Mobile 5G Device Get Outlook for Android",
+      "i need to change my address for my policy. My new address is: 1127 Lafayette Ave #1, Brooklyn, NY 11221",
+      "Hi, I would like to request an address change for Ruby’s policy from 828 Embarcadero del Mar, Apt/Unit #unit k, Goleta, CA, 93117 to 383 Pacific Oaks Rd Goleta, CA 93117. Thank you!"
+    ]
+  },
+  {
+    "Name": "General Services::Dunning::Customer Canceled NOT Blocked (want to set up new policy) [start over, restart, reinstate]",
+    "Intent category": "Why can't you insure me?",
+    "Metadata": {},
+    "Weekly usage": 3999,
+    "Description": "To be used when a customer who has been canceled due to dunning wants to set up new.",
+    "Content": "Hi, I am so sorry that your policy was canceled! Once a policy is canceled we are not able to reinstate it, however, since this is your first occurrence of a policy being canceled due to non-payment, you can create a new one if you'd like! To create a new policy, just head over to lemonade.com or open the Lemonade mobile app and Maya will  get you started up again in a few seconds! If you have any questions please do not hesitate to ask! Be well, Maya",
+    "Input examples": [
+      "Hello Maya, The address on my policy is incorrect. It should read: 143 Pamlico Drive Holly Ridge NC 28445 There is no apt number, it is a single family owned by me. Sincerely yours, E Sent from my T-Mobile 5G Device Get Outlook for Android",
+      "i need to change my address for my policy. My new address is: 1127 Lafayette Ave #1, Brooklyn, NY 11221",
+      "Hi, I would like to request an address change for Ruby’s policy from 828 Embarcadero del Mar, Apt/Unit #unit k, Goleta, CA, 93117 to 383 Pacific Oaks Rd Goleta, CA 93117. Thank you!"
+    ]
+  }
+]
+
