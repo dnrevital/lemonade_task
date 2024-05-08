@@ -77,11 +77,11 @@ def ask():
 
   # Retrieve macro name associated with the nearest neighbor
   macro_index = i.flatten()[0]
-  global macro_to_index_map  # Access the global macro mapping dictionary
-  selected_macro = macro_to_index_map[macro_index]
+  selected_macro = macro_index
+
 
   # Return JSON response
-  return jsonify({"answer": selected_macro})
+  return jsonify({"answer": macros[macro_index]["Id"]})
 
 
 if __name__ == '__main__':

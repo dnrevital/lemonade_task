@@ -1,5 +1,6 @@
 [
   {
+    "Id": "macro_001_pet_update_address_uncovered_state",
     "Name": "Pet::Account Management::Update Address [ Unsupported State / State Not Covered ]",
     "Intent category": "Can I update my address?",
     "Metadata": {
@@ -15,6 +16,7 @@
     ]
   },
   {
+    "Id": "macro_002_pet_update_address_same_premium",
     "Name": "Pet::Account Management::Update Address [ Pet Moved / Change Address / Moving ] [ ( Same Premium )]",
     "Intent category": "Can I update my address?",
     "Metadata": {
@@ -30,6 +32,7 @@
     ]
   },
   {
+    "Id": "macro_003_dunning_setup_new",
     "Name": "General Services::Dunning::Customer Canceled NOT Blocked (want to set up new policy) [start over, restart, reinstate]",
     "Intent category": "Why can't you insure me?",
     "Metadata": {},
