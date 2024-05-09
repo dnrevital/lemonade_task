@@ -21,7 +21,7 @@ def encode_macro(macro_text):
 
 def update_faiss_index(macros, index):
   # Preprocess and encode all macros beforehand
-  # We want to encode sa many as can macro fields, to enhance semantic matching
+  # We want to encode as many as can macro fields, to enhance semantic matching
   macro_embeddings = []
   for macro in macros:
     macro_texts = ' '.join([macro["Content"],
