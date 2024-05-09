@@ -6,7 +6,7 @@ import json
 import os
 
 # Constants
-EMBEDDING_SIZE = 512
+EMBEDDING_SIZE = 768
 
 def preprocess_text(text):
   return text.lower().strip()
@@ -18,30 +18,30 @@ def load_macros():
   return macros
 
 def encode_macro(macro_text):
-  model = SentenceTransformer('google-t5/t5-small')  # Load model (outside function for efficiency)
   macro_embedding = model.encode(preprocess_text(macro_text), convert_to_tensor=True)
   return macro_embedding.cpu().detach().numpy()
 
 def update_faiss_index(macros, index):
   # Preprocess and encode all macros beforehand
-  macro_embeddings = [encode_macro(macro["Content"]) for macro in macros]
+  macro_embeddings = []
+  for macro in macros:
+    macro_texts = ' '.join([macro["Content"],
+                           macro["Description"],
+                           macro["Id"],
+                           macro["Name"],
+                           macro["Intent category"]])
+    macro_embedding = encode_macro(macro_texts)
+    macro_embeddings.append(macro_embedding)
 
   # Convert embeddings to a single numpy array
   macro_embeddings_np = np.stack(macro_embeddings)
 
-  # Create a dictionary to map macros to their index in the Faiss index
-  macro_to_index_map = {}
-
   # Add embeddings and store corresponding macro data
   for i, macro in enumerate(macros):
     index.add(np.expand_dims(macro_embeddings_np[i], axis=0))
-    macro_to_index_map[i] = macro["Name"]  # Use macro name for identification
 
-  # Update distances after adding all data points (using search)
-  d, i = index.search(macro_embeddings_np, len(macro_embeddings_np))
-
-  return macro_to_index_map
-
+model_name = "sentence-transformers/sentence-t5-base"  # The model name from the warning
+model = SentenceTransformer(model_name)
 
 # Define Faiss index (outside function for persistence)
 index = faiss.IndexFlatL2(EMBEDDING_SIZE)
@@ -50,12 +50,8 @@ index = faiss.IndexFlatL2(EMBEDDING_SIZE)
 macros = load_macros()
 
 # Update Faiss index with initial macros (do this once during startup)
-macro_to_index_map = update_faiss_index(macros, index)
+update_faiss_index(macros, index)
 
-model_name = "google-t5/t5-small"
-if not os.path.exists(f"{model_name}.h5"):  # Check if model file exists
-  print(f"Downloading model {model_name}")
-  model = SentenceTransformer(model_name)
 app = Flask(__name__)
 
 @app.route('/ask', methods=['POST'])
@@ -77,7 +73,6 @@ def ask():
 
   # Retrieve macro name associated with the nearest neighbor
   macro_index = i.flatten()[0]
-  selected_macro = macro_index
 
 
   # Return JSON response
