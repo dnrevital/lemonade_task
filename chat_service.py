@@ -3,7 +3,6 @@ from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
 import json
-import os
 
 # Constants
 EMBEDDING_SIZE = 768
@@ -12,7 +11,6 @@ def preprocess_text(text):
   return text.lower().strip()
 
 def load_macros():
-  # Read macros from JSON file
   with open("macros.json") as f:
     macros = json.load(f)
   return macros
@@ -23,6 +21,7 @@ def encode_macro(macro_text):
 
 def update_faiss_index(macros, index):
   # Preprocess and encode all macros beforehand
+  # We want to encode sa many as can macro fields, to enhance semantic matching
   macro_embeddings = []
   for macro in macros:
     macro_texts = ' '.join([macro["Content"],
@@ -36,27 +35,26 @@ def update_faiss_index(macros, index):
   # Convert embeddings to a single numpy array
   macro_embeddings_np = np.stack(macro_embeddings)
 
-  # Add embeddings and store corresponding macro data
+  # Add embeddings and index corresponding macro data as a "document"
   for i, macro in enumerate(macros):
     index.add(np.expand_dims(macro_embeddings_np[i], axis=0))
 
-model_name = "sentence-transformers/sentence-t5-base"  # The model name from the warning
+model_name = "sentence-transformers/sentence-t5-base"
 model = SentenceTransformer(model_name)
 
-# Define Faiss index (outside function for persistence)
+# Define Faiss index
 index = faiss.IndexFlatL2(EMBEDDING_SIZE)
 
-# Load macros (replace with your actual data)
+# Load macros
 macros = load_macros()
 
-# Update Faiss index with initial macros (do this once during startup)
+# Preprocess Macros: Update Faiss index with initial macros
 update_faiss_index(macros, index)
 
 app = Flask(__name__)
 
 @app.route('/ask', methods=['POST'])
 def ask():
-  # Get request data
   data = request.get_json()
   question = data.get('Question')
   customer_details = data.get('Customer_details')
